@@ -1,0 +1,16 @@
+INDEX VERSION 1.3+/home/fazil/rnd/Angular_node_mongo/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+1893147488.index
+4265120176.index
+3735875275.index
+3111006817.index
+3048847983.index
+3840832070.index
+902649876.index
+2656276707.index
+2096185140.index
+4232600410.index
+2443841955.index
+2446686184.index
+356674108.index
+3629887831.index
+1108956691.index

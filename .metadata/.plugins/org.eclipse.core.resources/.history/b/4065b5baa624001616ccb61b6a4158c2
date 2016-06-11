@@ -1,0 +1,23 @@
+package com.intuit.java8.functional.interfaces;
+
+public class FunctionInterfaceDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		FunctionalInterface1<String,Integer> funIntr = (from)->Integer.valueOf(from);
+	}
+
+}
+
+@FunctionalInterface
+interface FunctionalInterface1<F,T> {
+	default int add(int a, int b){
+		return a+b;
+	}
+	default int multiply(int a, int b){
+		return a*b;
+	}
+	
+	int convert(String a);
+	
+}

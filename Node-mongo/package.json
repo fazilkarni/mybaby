@@ -1,0 +1,16 @@
+{
+  "name": "node-mongodb",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node node-mongodb.js"
+  },
+  "dependencies": {
+    "mongodb": "~3.2.3"
+  },
+  "devDependencies": {
+    "mocha": "~1.18.2",
+    "expect.js": "~0.3.1",
+    "superagent": "~0.17.0"
+  }
+}

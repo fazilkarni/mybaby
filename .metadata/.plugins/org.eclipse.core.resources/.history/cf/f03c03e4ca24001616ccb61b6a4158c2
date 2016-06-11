@@ -1,0 +1,58 @@
+package com.intuit.java8.streams;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Streams {
+
+	public static void main(String[] args) {
+		List<String> list = new ArrayList<String>();
+		list.add("addd2");
+		list.add("ccc2");
+		list.add("eee2");
+		list.add("bbb2");
+		list.add("fff2");
+		list.add("aaa");
+		list.add("ggg2");
+		list.add("zzz");
+		list.add("ppp");
+		list.add("xxx");
+		list.add("zzz");
+		list.add("lll");
+		List<Student> students = new ArrayList<Student>();
+		students.add(new Student("fazil"));
+		students.add(new Student("karni"));
+		students.add(new Student("mohammed"));
+		students.add(new Student("khan"));
+		students.add(new Student("Anil"));
+		students.add(new Student("Naleen"));
+		students.add(new Student("Ramesh"));
+		
+		//list.stream().sorted().map(MapperUtil::convert).filter((a)-> a.startsWith("a")).forEach(System.out::println);
+		students.stream().map(Student::process).filter((a)-> a.startsWith("k")).forEach(System.out::println);
+		
+		System.out.println("Any match found"+students.stream().anyMatch((a)->a.name.startsWith("kk")));
+		System.out.println("All contain name "+students.stream().allMatch((a)->a.name!=null));
+		System.out.println("Total students = "+students.stream().filter((a)-> a.startsWith("k")).count());
+
+	}
+
+}
+
+class MapperUtil{
+	
+	public static String convert(String a){
+		return a+"Fazil";
+	}
+}
+
+class Student{
+	public String name;
+	public Student(String name){
+		this.name = name;
+	}
+	
+	public static String  process(Student s){
+		return s.name;
+	}
+}

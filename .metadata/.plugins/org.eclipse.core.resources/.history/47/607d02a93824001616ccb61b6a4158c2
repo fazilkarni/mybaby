@@ -1,0 +1,26 @@
+package com.intuit.java8.interfaces;
+
+public class DefaultMethods implements defaultmethodInterface{
+
+	@Override
+	public int sqrt(int a) {
+		// TODO Auto-generated method stub
+		return a*a;
+	}
+	
+	public static void main(String[] args){
+		DefaultMethods obj = new DefaultMethods();
+		System.out.println(obj.multiple(10,5));
+		System.out.println((obj.sqrt(10)));
+	}
+
+}
+
+
+interface defaultmethodInterface{
+	default int multiple(int a,int b){
+		return a*b;
+	}
+	
+	int sqrt(int a);
+}

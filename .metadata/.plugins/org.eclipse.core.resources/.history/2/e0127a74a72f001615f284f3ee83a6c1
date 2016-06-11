@@ -1,0 +1,6 @@
+package com.mybaby.utils;
+
+public class Constants {
+public static int SEND_PATIENT_CONNECT_AFTER=2;
+public static int SEND_PATIENT_NEXT_VISIT_REMAINDER=1;
+}

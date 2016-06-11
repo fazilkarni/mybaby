@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Students-management/WebContent/js/list/template/NewFile.html&apos; to &apos;list.html&apos;" description="Rename resource &apos;NewFile.html&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/js/list/template/NewFile.html" name="list.html" stamp="1458130253771" updateReferences="true"/>
+</session>

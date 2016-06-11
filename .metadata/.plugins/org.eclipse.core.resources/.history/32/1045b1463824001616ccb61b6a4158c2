@@ -1,0 +1,5 @@
+package com.intuit.java8.interfaces;
+
+public class DefaultMethods {
+
+}

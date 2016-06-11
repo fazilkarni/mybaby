@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.koolfrenz.entity.Transaction" table="Transaction">
+		<id name="id" column="ID">
+			<generator class="increment" />
+		</id>
+		
+		<property name="name" column="NAME"/>
+		<property name="total" column="TOTAL" />
+		<one-to-one name="customer" class="com.koolfrenz.entity.Customer" cascade="save-update"></one-to-one>
+	</class>
+</hibernate-mapping>

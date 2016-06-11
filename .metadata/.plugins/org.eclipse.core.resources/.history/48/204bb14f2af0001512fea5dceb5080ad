@@ -1,0 +1,91 @@
+import java.util.LinkedList;
+import java.util.List;
+
+public class ThreadCommunication {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		BlockingQueue q = new BlockingQueue(10);
+		
+		
+	}
+
+}
+
+class Consumer extends Thread{
+	BlockingQueue q;
+	public void Consume(BlockingQueue q){
+		this.q = q;
+	}
+	
+	public void run(){
+		
+		while(true){
+			try {
+				System.out.println("Consumed"+q.dequeue());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}
+
+class Producer extends Thread{
+	BlockingQueue q;
+	public void Producer(BlockingQueue q){
+		this.q = q;
+	}
+	
+	public void run(){
+		
+		while(true){
+			try {
+				q.enqueue("Product"+Math.random());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}
+
+
+ class BlockingQueue {
+
+	  private List queue = new LinkedList();
+	  private int  limit = 10;
+
+	  public BlockingQueue(int limit){
+	    this.limit = limit;
+	  }
+
+
+	  public synchronized void enqueue(Object item)
+	  throws InterruptedException  {
+	    while(this.queue.size() == this.limit) {
+	      wait();
+	    }
+	    if(this.queue.size() == 0) {
+	      notifyAll();
+	    }
+	    this.queue.add(item);
+	  }
+
+
+	  public synchronized Object dequeue()
+	  throws InterruptedException{
+	    while(this.queue.size() == 0){
+	      wait();
+	    }
+	    if(this.queue.size() == this.limit){
+	      notifyAll();
+	    }
+
+	    return this.queue.remove(0);
+	  }
+
+	}
+	  

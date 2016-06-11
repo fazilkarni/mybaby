@@ -1,0 +1,207 @@
+package com.intuit.java8.geeks;
+
+public class BinarySearchTree {
+	public Node root;
+	public static void main(String[] args) {
+		BinarySearchTree tree = new BinarySearchTree();
+		tree.insert(50);
+        tree.insert(30);
+        tree.insert(20);
+        tree.insert(40);
+        tree.insert(70);
+        tree.insert(60);
+        tree.insert(80);
+        System.out.println("\nInorder traversal increasing elements");
+        tree.inorder(tree.root);
+        System.out.println("\nInorder traversal decreasing  elements");
+        tree.reveerseInorder(tree.root);
+        System.out.println("\nPostorder traversal");
+        tree.postOder(tree.root);
+        System.out.println("\nPreorder traversal");
+        tree.preOder(tree.root);
+        int[] count = new int[1];
+        count[0]=0;
+        
+       int[] count2 = new int[1];
+       count2[0]=0;
+        System.out.println("\n2nd max node is:"+tree.nthMaxNode(tree.root, 4, count).key);
+        System.out.println("\n2nd min node is:"+tree.nthMinNode(tree.root, 2, count2));
+        System.out.println("key 70 is present: "+tree.search(70));
+        System.out.println("key 700 is present: "+tree.search(700));
+        
+        System.out.println("Max node:"+tree.findMax(tree.root).key);
+        
+        System.out.println("Min node:"+tree.findMin(tree.root).key);
+        
+        System.out.println("Give tree is bst:"+tree.ifBST(tree.root));
+
+	}
+	
+	public boolean ifBST(Node root){
+		
+		return isBSTree(root,findMin(root).key,findMax(root).key);
+		
+		
+		
+	}
+	
+	/**
+	 * this method checks if the given tree is BST
+	 * @param root
+	 * @param min
+	 * @param max
+	 * @return
+	 */
+	private boolean isBSTree(Node root, int min, int max){
+		if( root==null) return true;
+		
+		if(root.key<min ||root.key>max) return false;
+		
+		return isBSTree(root.left,min,root.key-1) && isBSTree(root.left,root.key+1,max);
+	}
+	public boolean search(int key){
+		if (searchRec(root,key)==null) return false;
+		return true;
+	}
+	
+	private Node searchRec(Node root,int key){
+		if(root==null||root.key==key){
+			return root;
+		}
+		if(key<root.key){
+			return searchRec(root.left,key);
+		}else{
+			return searchRec(root.right,key);
+		}
+	}
+	public void insert(int key){
+		root = insertRec(root,key);
+	}
+	
+	private  Node insertRec(Node root, int key){
+		if(root==null){
+			root = new Node(key);
+			return root;
+		}
+		
+		if(key<root.key){
+			root.left = insertRec(root.left,key);
+		}else if(key>root.key){
+			root.right = insertRec(root.right,key);
+		}
+		
+		return root;
+	}
+	
+	public void inorder(Node root){
+		if(root!=null){
+			inorder(root.left);
+			System.out.print(" "+root.key);
+			inorder(root.right);
+		}
+	}
+	
+	public void reveerseInorder(Node root){
+		if(root!=null){
+			reveerseInorder(root.right);
+			System.out.print(" "+root.key);
+			reveerseInorder(root.left);
+		}
+	}
+	public void preOder(Node root){
+		if(root!=null){
+			System.out.print(" "+root.key);
+			preOder(root.left);
+			preOder(root.right);
+		}
+	}
+	
+	public void postOder(Node root){
+		if(root!=null){
+			
+			preOder(root.left);
+			preOder(root.right);
+			System.out.println(" "+root.key);
+		}
+	}
+	
+	public Node findMin(Node root){
+		if(root.left==null) return root;
+		return findMin(root.left);
+	}
+	
+	public Node findMax(Node root){
+		if(root.right==null) return root;
+		return findMax(root.right);
+	}
+	
+	
+	public Node nthMaxNode(Node root,int n, int[] count){
+		if(root ==null) return null;
+		Node nth_Max_Node = null;
+		
+		nth_Max_Node = nthMaxNode(root.right,n,count);
+		if(nth_Max_Node==null){
+			count[0]+=1;
+			if(count[0]==n){
+				nth_Max_Node = root;
+			}
+		}
+		
+		if(nth_Max_Node==null){
+			nth_Max_Node = nthMaxNode(root.left, n, count);
+		}
+		
+		return nth_Max_Node;
+	}
+	
+	public Node nthMinNode(Node root,int n, int[] count){
+		if(root ==null) return null;
+		Node nth_Max_Node = null;
+		
+		nth_Max_Node = nthMinNode(root.left,n,count);
+		if(nth_Max_Node==null){
+			count[0]+=1;
+			if(count[0]==n){
+				nth_Max_Node = root;
+			}
+		}
+		
+		if(nth_Max_Node==null){
+			nth_Max_Node = nthMinNode(root.right, n, count);
+		}
+		
+		return nth_Max_Node;
+	}
+	
+	class Node{
+		private int key;
+		private Node left;
+		private Node right;
+		
+		Node(int key){
+			this.key = key;
+			this.left=null;
+			this.right=null;
+		}
+		public int getKey() {
+			return key;
+		}
+		public void setKey(int key) {
+			this.key = key;
+		}
+		public Node getLeft() {
+			return left;
+		}
+		public void setLeft(Node left) {
+			this.left = left;
+		}
+		public Node getRight() {
+			return right;
+		}
+		public void setRight(Node right) {
+			this.right = right;
+		}
+	}
+
+}

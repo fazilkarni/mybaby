@@ -1,0 +1,23 @@
+package com.intuit.java8.constructor.reference.passing;
+
+public class ConstructorPassingDemo {
+
+	public static void main(String[] args) {
+		
+
+	}
+
+}
+
+class Person{
+	String name;
+	int age;
+	public Person(){
+		
+	}
+	
+	public Person(String name, int age){
+		this.name = name;
+		this.age = age;
+	}
+}

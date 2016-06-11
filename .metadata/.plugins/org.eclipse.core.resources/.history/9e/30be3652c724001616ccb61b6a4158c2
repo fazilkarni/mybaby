@@ -1,0 +1,29 @@
+package com.intuit.java8.streams;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Streams {
+
+	public static void main(String[] args) {
+		List<String> list = new ArrayList<String>();
+		list.add("addd2");
+		list.add("ccc2");
+		list.add("eee2");
+		list.add("bbb2");
+		list.add("fff2");
+		list.add("aaa");
+		list.add("ggg2");
+		list.add("zzz");
+		list.add("ppp");
+		list.add("xxx");
+		list.add("zzz");
+		list.add("lll");
+		
+		list.stream().sorted().map(String::toUpperCase).filter((a)-> a.startsWith("A")).forEach(System.out::println);
+		
+		
+
+	}
+
+}

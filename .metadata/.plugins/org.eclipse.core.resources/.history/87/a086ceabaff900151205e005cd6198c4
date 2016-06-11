@@ -1,0 +1,71 @@
+package com.puzzles;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class FindDuplicatesIfArrayHas {
+
+	public static void main(String[] args) {
+		FindDuplicatesIfArrayHas obj = new FindDuplicatesIfArrayHas();
+		
+		obj.checkIfStringHasDuplicateChar();
+		/*String[] input = {"a","b","c","d","a","b"};
+		Character[] chars ={'a','b'}; 
+		String[] inputWithout = {"a","b","c","d","e","f"};
+		System.out.println("input contains duplicates: "+containsDuplicates(input));
+		System.out.println("inputWithout contains duplicates: "+containsDuplicates(inputWithout));
+		System.out.println("byAddMethod: input contains duplicates: "+byAddMethod(input));
+		System.out.println("byAddMethod: inputWithout contains duplicates: "+byAddMethod(inputWithout));
+	*/}
+	
+	public static Boolean containsDuplicates(String[] input){
+		
+		List inputAsList = Arrays.asList(input);
+		Set set = new HashSet(inputAsList);
+		if(set.size()!=inputAsList.size()) return true;
+		return false;
+	}
+	
+	public static Boolean byAddMethod(String[] input){
+		
+		Set set = new HashSet();
+		int size = input.length;
+		for(int i=0;i<size;i++){
+			if(!set.add(input[i])){
+				return true;
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	/*
+	 * Its of complexity O(n). Just check in the chars array to see if this char has already apeared 
+	 * in the array
+	 */
+	public void checkIfStringHasDuplicateChar(){
+		boolean found = false;
+		int[] chars = new int[256];
+		String input = "asdfghjklpoiuytrewqzxcvbnma";
+		for(int i =0;i<input.length();i++){
+			if(chars[input.charAt(i)]==0){
+				chars[input.charAt(i)] = 1;
+			}else{
+				found = true;break;
+			}
+		}
+		
+		if(found){
+			System.out.println("duplicate found");
+		}else{
+			System.out.println("No duplicate found");
+		}
+		
+	}
+	
+	
+
+}

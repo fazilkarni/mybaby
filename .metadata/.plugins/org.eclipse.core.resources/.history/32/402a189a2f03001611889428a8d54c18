@@ -1,0 +1,21 @@
+package com.cisco;
+
+public class ShallowCloning implements Cloneable{
+	String a;
+	int i;
+	
+	public ShallowCloning(){
+		this.a = "A class";
+		this.i = 12;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	public Object clone() throws CloneNotSupportedException{
+		
+		return super.clone();
+	}
+
+}

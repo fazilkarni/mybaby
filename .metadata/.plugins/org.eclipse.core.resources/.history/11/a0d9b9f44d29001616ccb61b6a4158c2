@@ -1,0 +1,10 @@
+package com.mkyong.dao;
+
+public class DaoTemplate {
+	static {
+		System.out.println("DaoTemplate loaded");
+	}
+	public DaoTemplate(){
+		System.out.println("DaoTemplate instance created");
+	}
+}

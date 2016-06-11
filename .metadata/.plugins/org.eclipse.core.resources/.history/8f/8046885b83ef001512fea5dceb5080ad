@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class DeepCloningBySerialization implements Cloneable {
+
+ private String name;
+ private String designation;
+ List<DeepCloningBySerialization> reportees = new ArrayList<DeepCloningBySerialization>();
+
+ public DeepCloningBySerialization() {
+ this.setDesignation("Programmer");
+ }
+ public String getDesignation() {
+ return designation;
+ }
+
+ public void setDesignation(String designation) {
+ this.designation = designation;
+ }
+
+ public String getName() {
+ return name;
+ }
+
+ public void setName(String name) {
+ this.name = name;
+ }
+
+// public Object clone() throws CloneNotSupportedException {
+// /*
+// Employee copyObj = new Employee();
+// copyObj.setDesignation(this.designation);
+// copyObj.setName(this.name);
+// return copyObj;
+// */
+// return super.clone();
+// }
+ 
+ public static void main(String[] args){
+	 DeepCloningBySerialization e = new DeepCloningBySerialization();
+	 e.setName("Fazil");
+	 
+	 try {
+		DeepCloningBySerialization emp = (DeepCloningBySerialization) e.clone();
+		emp.setDesignation("New one");
+		
+		System.out.println(emp.getName()+"and designation is :"+emp.getDesignation());
+	} catch (CloneNotSupportedException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+	}
+	 
+ }
+}

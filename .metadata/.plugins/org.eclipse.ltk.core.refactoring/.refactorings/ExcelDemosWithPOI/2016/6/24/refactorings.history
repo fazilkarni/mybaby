@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;howtodoinjava_demo.xlsx&apos; to &apos;mybaby/src/com.mybaby.feeder.appointments&apos;&#x0A;- Original project: &apos;ExcelDemosWithPOI&apos;&#x0A;- Destination element: &apos;mybaby/src/com.mybaby.feeder.appointments&apos;&#x0A;- Original element: &apos;howtodoinjava_demo.xlsx&apos;" description="Copy file" destination="=mybaby/src&lt;com.mybaby.feeder.appointments" element1="howtodoinjava_demo.xlsx" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1465104266208" units="0" version="1.0"/>
+</session>

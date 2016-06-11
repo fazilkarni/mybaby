@@ -1,0 +1,10 @@
+package com.intuit.java8.lamda.functions;
+
+public class LamdaFunctions {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

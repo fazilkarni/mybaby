@@ -1,0 +1,29 @@
+package com.intuit.java8.streams;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+public class SerialVsParallelStream {
+
+	public static void main(String[] args) {
+		int max = 1000000;
+		List<String> values = new ArrayList<>(max);
+		for (int i = 0; i < max; i++) {
+		    UUID uuid = UUID.randomUUID();
+		    values.add(uuid.toString());
+		}
+		
+		long start = System.nanoTime();
+		long count = values.stream().sorted().count();
+		long end = System.nanoTime();
+		System.out.println("Serial stream took "+(end-start)+"and count is "+count);
+		
+		start = System.nanoTime();
+		 count = values.parallelStream().sorted().count();
+		 end = System.nanoTime();
+		System.out.println("parallel stream took "+(end-start)+"and count is "+count);
+
+	}
+
+}

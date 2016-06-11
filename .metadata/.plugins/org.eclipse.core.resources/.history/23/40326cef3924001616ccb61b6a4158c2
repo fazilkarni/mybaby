@@ -1,0 +1,71 @@
+package com.intuit.java8.interfaces;
+
+public class DefaultMethods implements defaultmethodInterface, defaultmethodInterface2{
+
+	@Override
+	public int sqrt(int a) {
+		// TODO Auto-generated method stub
+		return a*a;
+	}
+	
+	@Override
+	public int add(int a, int b) {
+		// TODO Auto-generated method stub
+		return defaultmethodInterface.super.add(a, b);
+	}
+
+	@Override
+	public int multiple(int a, int b) {
+		// TODO Auto-generated method stub
+		return defaultmethodInterface.super.multiple(a, b);
+	}
+
+	public static void main(String[] args){
+		DefaultMethods obj = new DefaultMethods();
+		System.out.println(obj.multiple(10,5));
+		System.out.println((obj.sqrt(10)));
+		
+		defaultmethodInterface obje2 = new defaultmethodInterface(){
+
+			@Override
+			public int sqrt(int a) {
+				// TODO Auto-generated method stub
+				return a*a;
+			}
+			
+		};
+		
+		System.out.println(obje2.multiple(10, 7));
+		System.out.println(obje2.sqrt(25));
+		
+		System.out.println(obje2.add(25,25));
+	}
+
+}
+
+
+interface defaultmethodInterface{
+	default int multiple(int a,int b){
+		System.out.println("I am interface multiple");
+		return a*b;
+	}
+	
+	default int add(int a, int b){
+		return a+b;
+	}
+	
+	int sqrt(int a);
+}
+
+interface defaultmethodInterface2{
+	default int multiple(int a,int b){
+		System.out.println("I am interface 2 multiple");
+		return a*b;
+	}
+	
+	default int add(int a, int b){
+		return a+b;
+	}
+	
+	int sqrt(int a);
+}

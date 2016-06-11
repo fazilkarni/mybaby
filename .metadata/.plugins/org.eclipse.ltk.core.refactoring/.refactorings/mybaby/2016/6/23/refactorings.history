@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 5 elements from project &apos;mybaby&apos;&#x0A;- Original project: &apos;mybaby&apos;&#x0A;- Original elements:&#x0A;     dom4j-1.6.1.jar&#x0A;     poi-3.9-20121203.jar&#x0A;     poi-ooxml-3.9-20121203.jar&#x0A;     poi-ooxml-schemas-3.9-20121203.jar&#x0A;     xmlbeans-2.3.0.jar" description="Delete elements" element1="WebContent/WEB-INF/lib/xmlbeans-2.3.0.jar" element2="WebContent/WEB-INF/lib/poi-ooxml-3.9-20121203.jar" element3="WebContent/WEB-INF/lib/dom4j-1.6.1.jar" element4="WebContent/WEB-INF/lib/poi-3.9-20121203.jar" element5="WebContent/WEB-INF/lib/poi-ooxml-schemas-3.9-20121203.jar" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="5" stamp="1465069289867" subPackages="false" version="1.0"/>
+</session>

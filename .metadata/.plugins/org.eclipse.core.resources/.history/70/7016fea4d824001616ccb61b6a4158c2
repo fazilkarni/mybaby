@@ -1,0 +1,38 @@
+package com.intuit.java8.concurrency;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.IntStream;
+
+public class ConcurrencyDemo {
+
+	public static void main(String[] args) {
+		ConcurrencyDemo obj = new ConcurrencyDemo();
+		obj.demoConcurrency();
+
+	}
+	static ReentrantLock  lock = new ReentrantLock();
+	int count = 0;
+
+	static void increment() {
+	    lock.lock();
+	    try {
+	        count++;
+	    } finally {
+	        lock.unlock();
+	    }
+	}
+	 
+	public void demoConcurrency(){
+		ExecutorService executor = Executors.newFixedThreadPool(2);
+
+		IntStream.range(0, 10000)
+		    .forEach(i -> executor.submit(ConcurrencyDemo::increment));
+
+		executor.shutdown();
+
+		System.out.println(count);
+	}
+
+}

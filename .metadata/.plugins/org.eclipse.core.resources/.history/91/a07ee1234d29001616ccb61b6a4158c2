@@ -1,0 +1,16 @@
+package com.mkyong.bl;
+
+import com.mkyong.dao.DaoTemplate;
+
+public class BLTemplate {
+	DaoTemplate daoTemplate;
+	static {
+		System.out.println("BLTemplate loaded");
+	}
+	
+	public BLTemplate(){
+		daoTemplate = new DaoTemplate();
+		System.out.println("Instance created.");
+	}
+
+}

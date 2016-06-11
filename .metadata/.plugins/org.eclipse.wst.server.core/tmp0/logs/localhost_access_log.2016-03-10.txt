@@ -1,0 +1,5 @@
+127.0.0.1 - - [10/Mar/2016:23:24:40 +0530] "GET / HTTP/1.1" 404 994
+127.0.0.1 - - [10/Mar/2016:23:25:15 +0530] "GET /students-management HTTP/1.1" 404 1032
+127.0.0.1 - - [10/Mar/2016:23:25:15 +0530] "GET /favicon.ico HTTP/1.1" 404 1016
+127.0.0.1 - - [10/Mar/2016:23:25:22 +0530] "GET /students-management/index.html HTTP/1.1" 404 1054
+127.0.0.1 - - [10/Mar/2016:23:26:38 +0530] "GET /Students-management/index.html HTTP/1.1" 200 344

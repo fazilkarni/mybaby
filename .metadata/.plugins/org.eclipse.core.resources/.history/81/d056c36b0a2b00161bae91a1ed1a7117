@@ -1,0 +1,5 @@
+package com.mybaby.feeder.appointments;
+
+public class AppointmentVO {
+
+}

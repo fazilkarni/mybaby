@@ -1,0 +1,67 @@
+
+public class BST {
+	
+	public static void main(String[] args) {
+		BST bst = new BST();
+		Node head = new Node(100);
+		head.left = new Node(90);
+		head.right = new Node(105);
+		head.left.left = new Node(80);
+		head.left.right = new Node(95);
+		head.left.right.left = new Node(94);
+		head.left.right.right = new Node(97);
+		head.left.left.left = new Node(75);
+		head.left.left.right = new Node(85);
+		head.right.left = new Node(102);
+		head.right.right = new Node(110);
+		head.right.right.left = new Node(108);
+		head.right.right.right = new Node(111);
+		System.out.println("Pre order traversal");
+		bst.preOrderTraversal(head);
+		System.out.println("\nIn order traversal");
+		bst.inOrderTraversal(head);
+		System.out.println("\npot order traversal");
+		bst.postOrderTraversal(head);
+		
+
+	}
+	
+	public void preOrderTraversal(Node node){
+		if(node==null)return ;
+		System.out.print(node.key+", ");
+		preOrderTraversal(node.left);
+		preOrderTraversal(node.right);
+	}
+	
+	public void inOrderTraversal(Node node){
+		if(node==null)return ;
+		preOrderTraversal(node.left);
+		System.out.println(node.key);
+		preOrderTraversal(node.right);
+	}
+	
+	public void postOrderTraversal(Node node){
+		if(node==null)return ;
+		preOrderTraversal(node.left);
+		preOrderTraversal(node.right);
+		System.out.println(node.key);
+	}
+	
+	public void createBST(){
+		
+	}
+	
+	public void display(){
+		
+	}
+
+}
+
+class Node{
+	int key;
+	Node left;
+	Node right;
+	public Node(int key){
+		this.key=key;
+	}
+}

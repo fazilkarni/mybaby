@@ -1,0 +1,18 @@
+package com.mybaby.appointment.vo;
+
+import java.util.Date;
+
+public class AppointmentVO {
+	private int id;
+	private Date firstVisit;
+	private Date followup;
+	private Doctor Doctor;
+	private Patient patient;
+	public String description;
+	
+	
+	
+	
+	
+
+}

@@ -1,0 +1,30 @@
+package com.intuit.java8.constructor.reference.passing;
+
+public class ConstructorPassingDemo {
+
+	public static void main(String[] args) {
+		
+		PersonFactory pf = Person::new;
+		pf.create("fazil", 37);
+		System.out.println(pf.create("fazil", 37).name);
+	}
+
+}
+
+class Person{
+	String name;
+	int age;
+	public Person(){
+		
+	}
+	
+	public Person(String name, int age){
+		this.name = name;
+		this.age = age;
+	}
+}
+
+interface PersonFactory<P extends Person>{
+	
+	P create();
+}

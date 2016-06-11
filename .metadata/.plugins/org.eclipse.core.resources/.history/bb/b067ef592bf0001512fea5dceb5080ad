@@ -1,0 +1,101 @@
+import java.util.LinkedList;
+import java.util.List;
+
+public class ThreadCommunication {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		BlockingQueue q = new BlockingQueue(10);
+		Consumer c = new Consumer(q);
+		
+		Producer p = new Producer(q);
+		
+		c.start();
+		p.start();
+		
+	}
+
+}
+
+class Consumer extends Thread{
+	BlockingQueue q;
+	public  Consumer(BlockingQueue q){
+		this.q = q;
+	}
+	
+	public void run(){
+		
+		while(true){
+			try {
+				System.out.println(" Consumed "+q.dequeue());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}
+
+class Producer extends Thread{
+	BlockingQueue q;
+	public Producer(BlockingQueue q){
+		this.q = q;
+	}
+	
+	public void run(){
+		
+		while(true){
+			try {
+				double p = Math.random()*100;
+				System.out.println(" Product added "+p);
+				q.enqueue("Product"+p);
+				Thread.currentThread().sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}
+
+
+ class BlockingQueue {
+
+	  private List queue = new LinkedList();
+	  private int  limit = 10;
+
+	  public BlockingQueue(int limit){
+	    this.limit = limit;
+	  }
+
+
+	  public synchronized void enqueue(Object item)
+	  throws InterruptedException  {
+	    while(this.queue.size() == this.limit) {
+	    	System.out.println("Wating to have items be consumed");
+	      wait();
+	    }
+	    if(this.queue.size() == 0) {
+	      notifyAll();
+	    }
+	    this.queue.add(item);
+	  }
+
+
+	  public synchronized Object dequeue()
+	  throws InterruptedException{
+	    while(this.queue.size() == 0){
+	    	System.out.println("Wating to have items in Q");
+	      wait();
+	    }
+	    if(this.queue.size() == this.limit){
+	      notifyAll();
+	    }
+
+	    return this.queue.remove(0);
+	  }
+
+	}
+	  

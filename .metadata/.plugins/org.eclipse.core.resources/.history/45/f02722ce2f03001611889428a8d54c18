@@ -1,0 +1,31 @@
+package com.cisco;
+
+public class ShallowCloning implements Cloneable{
+	String a;
+	int i;
+	
+	public ShallowCloning(){
+		this.a = "A class";
+		this.i = 12;
+	}
+	public static void main(String[] args) {
+		ShallowCloning obj = new ShallowCloning();
+		ShallowCloning obj2;
+		
+			obj2 = (ShallowCloning)obj.clone();
+			System.out.println(obj2.a+" "+obj2.i);
+		
+
+	}
+	
+	public Object clone() {
+		
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

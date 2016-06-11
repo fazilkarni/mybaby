@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+<!-- 	<context:annotation-config/> -->
+
+    <!-- Enable Annotation based Declarative Transaction Management -->
+<!--     <tx:annotation-driven proxy-target-class="true" -->
+<!--         transaction-manager="transactionManager" /> -->
+ 
+    <!-- Creating TransactionManager Bean, since JDBC we are creating of type 
+        DataSourceTransactionManager -->
+    <bean id="transactionManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="helloWorld" class="com.koolfrenz.HelloWorld" init-method="init" destroy-method="destruct" >
+       <property name="message" value="Hello World!"/>
+   </bean>
+   
+    <bean id="helloWorld1" class="com.koolfrenz.HelloWorld" init-method="init" scope="singleton" destroy-method="destruct" >
+       <property name="message" value="Hello World!"/>
+   </bean>
+
+	<bean id="textEditor" class="com.koolfrenz.TextEditor">
+		<property name="spellChecker" ref="spellChecker">
+	 		
+		</property>
+	</bean>
+	<bean id="dataSource"
+	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	   <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	   <property name="url" value="jdbc:mysql://localhost:3306/test"/>
+	   <property name="username" value="root"/>
+	   <property name="password" value=""/>
+	</bean>
+	<bean id="spellChecker" class="com.koolfrenz.SpellChecker" ></bean> 
+	<bean id="collectionMapper" class="com.koolfrenz.JavaCollection">
+		<property name="names">
+			<list>
+				<value>Fazil</value>
+				<value>Karni</value>
+				<value>Mohammed</value>
+			</list>
+		</property>
+		<property name="animalSet">
+			<set>
+				<value>Lion</value>
+				<value>Tiger</value>
+				<value>Jaquar</value>
+			</set>
+		</property>
+		<property name="nameAddressMap">
+			<map>
+				<entry	key="Fazil" value="Bangalore, Bannerghatta road"/>
+				<entry key="karni" value="London, Europe"/>
+				<entry key="mohammed" value="US, LA"/>
+			</map>
+		</property>
+		
+		<property name="props">
+			<props>
+				<prop key="fazil"> Hardworking and smart software professional</prop>
+				<prop key="karni"> From Bandri, Sandur post bellary dist, Karnataka</prop>
+				<prop key="mohammed"> From US. a great scientist.</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+		<property name="dataSource" ref="dataSource"></property>  
+	</bean>
+	
+	    <bean id="customerDAO" class="com.koolfrenz.dao.CustomerDAOImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+ 
+    <bean id="customerManager" class="com.koolfrenz.service.CustomerManagerImpl">
+        <property name="customerDAO" ref="customerDAO"></property>
+    </bean>
+
+</beans>

@@ -1,0 +1,12 @@
+package com.mkyong.bl;
+
+public class BLTemplate {
+	static {
+		System.out.println("BLTemplate loaded");
+	}
+	
+	public BLTemplate(){
+		System.out.println("Instance created.");
+	}
+
+}
