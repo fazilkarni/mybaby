@@ -1,5 +1,8 @@
 package com.mybaby.communication.email;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -24,64 +27,32 @@ public class SendEmailUsingGMailSMTP {
 	}
 
 	public static void main(String[] args) {
-		/*
-		 * // Recipient's email ID needs to be mentioned. String to =
-		 * "mujahidh83@gmail.com";//change accordingly
-		 * 
-		 * // Sender's email ID needs to be mentioned String from =
-		 * "karni.fazil@gmail.com";//change accordingly final String username =
-		 * "karni.fazil@gmail.com";//change accordingly final String password =
-		 * "vztffiorfonrupaj";//change accordingly
-		 * 
-		 * // Assuming you are sending email through relay.jangosmtp.net String
-		 * host = "smtp.gmail.com";
-		 * 
-		 * Properties props = new Properties(); props.put("mail.smtp.auth",
-		 * "true"); props.put("mail.smtp.starttls.enable", "true");
-		 * props.put("mail.smtp.host", host); props.put("mail.smtp.port",
-		 * "587");
-		 * 
-		 * // Get the Session object. Session session =
-		 * Session.getInstance(props, new javax.mail.Authenticator() { protected
-		 * PasswordAuthentication getPasswordAuthentication() { return new
-		 * PasswordAuthentication(username, password); } });
-		 * 
-		 * try { // Create a default MimeMessage object. Message message = new
-		 * MimeMessage(session);
-		 * 
-		 * // Set From: header field of the header. message.setFrom(new
-		 * InternetAddress(from));
-		 * 
-		 * // Set To: header field of the header.
-		 * message.setRecipients(Message.RecipientType.TO,
-		 * InternetAddress.parse(to));
-		 * 
-		 * // Set Subject: header field message.setSubject(
-		 * "On behalf of Dr. Mujahid Hussain");
-		 * 
-		 * // Now set the actual message //message.setText(
-		 * "<html><body><h2>Hi xxxx,</h2><div>This is Dr. Mujahid, I hope your doing fine. Recently you consulted me regarding xxxxx and I hope he/she recovered now. </div><br><div>I am consistently striving to provide excellent service to my patients and with regard to this I would love to get your feedback with a brief <a href=\"#\">click here</a></div><br><br><div>Thanks and regards,</div><div>Dr. Mujahid.</div></body></html>"
-		 * ); // message.setText(
-		 * "<html><body><h2>Hi xxxx,</h2><div>This is Dr. Mujahid, I hope your doing fine. Recently you consulted me regarding xxxxx and I hope he/she recovered now. </div><br><div>I am consistently striving to provide excellent service to my patients and with regard to this I would love to get your feedback with a brief <a href=\"#\">click here</a></div><br><br><div>Thanks and regards,</div><div>Dr. Mujahid.</div></body></html>"
-		 * ); message.setContent(
-		 * "<html><body><h2>Hi xxxx,</h2><div>This is Dr. Mujahid, I hope your doing fine. Recently you consulted me regarding xxxxx and I hope he/she recovered now. </div><br><div>I am consistently striving to provide excellent service to my patients and with regard to this I would love to get your feedback with a brief <a href=\"#\">click here</a></div><br><br><div>Thanks and regards,</div><div>Dr. Mujahid.</div></body></html>"
-		 * ,"text/html");
-		 * 
-		 * // Send message Transport.send(message);
-		 * 
-		 * System.out.println("Sent message successfully....");
-		 * 
-		 * } catch (MessagingException e) { throw new RuntimeException(e); }
-		 */
-
 		SendEmailUsingGMailSMTP sendEmailUsingGMailSMTP = new SendEmailUsingGMailSMTP();
-		sendEmailUsingGMailSMTP.sendPatientReconnectEmail();
+		sendEmailUsingGMailSMTP.sendPatientFeedbackAndRatingEmail();
 	}
 
 	/**
 	* 
 	*/
-	public void sendPatientReconnectEmail() {
+	public void sendPatientFeedbackAndRatingEmail() {
+		Date date = new Date();
+		System.out.println("current day = "+date);
+		long prevDate = date.getTime()-Constants.SEND_PATIENT_FEED_BACK_AFTER*24*60*60*1000;
+		Timestamp timestamp = new Timestamp(prevDate);
+		String query = "select a.FIRST_VISIT, a.FOLLOWUP, p.NAME as PATIENT,p.EMAIL,p.MOBILE, d.NAME as DOCTOR, p.MOTHER_NAME as mother, p.FATHER_NAME as father, p.gender as sex, dp.FEEDBACK_EMAIL_SENT,d.id as DOCTORID, p.id as PATIENTID  from mybaby.PATIENT p, mybaby.DOCTOR d, mybaby.APPOINTMENTS a, mybaby.DOCTOR_PATIENT dp  where a.FIRST_VISIT>'"+timestamp +"' and a.DOCTORID=d.ID and a.PATIENTID=p.ID and dp.DOCTOR_ID=d.ID and dp.PATIENT_ID=p.ID and dp.FEEDBACK_EMAIL_SENT=0";
+		List<AppointmentVO> appointments = AppointmentDao.getAppointment(query);
+		Iterator<AppointmentVO> itr = appointments.iterator();
+
+		while (itr.hasNext()) {
+			sendEmail(itr.next(), Constants.EMAIL_TYPE_SEND_FOR_FEED_BACK);
+		}
+		AppointmentDao.setFeedbackEmailSetFlag(appointments);
+	}
+	
+	/**
+	* 
+	*/
+	public void sendPatientRemainderEmail() {
 		String query = "select a.FIRST_VISIT, a.FOLLOWUP, p.NAME as PATIENT,p.EMAIL,p.MOBILE, d.NAME as DOCTOR, p.MOTHER_NAME as mother, p.FATHER_NAME as father,p.gender as sex, p.age  from mybaby.PATIENT p, mybaby.DOCTOR d, mybaby.APPOINTMENTS a where a.DOCTORID=d.ID and a.PATIENTID=p.ID";
 		List<AppointmentVO> appointments = AppointmentDao.getAppointment(query);
 		Iterator<AppointmentVO> itr = appointments.iterator();
@@ -108,9 +79,9 @@ public class SendEmailUsingGMailSMTP {
 															// accordingly
 
 		// Sender's email ID needs to be mentioned
-		String from = "karni.fazil@gmail.com";// change accordingly
-		final String username = "karni.fazil@gmail.com";// change accordingly
-		final String password = "vztffiorfonrupaj";// change accordingly
+		String from = "kooldoctorzz@gmail.com";//"karni.fazil@gmail.com";// change accordingly
+		final String username = "kooldoctorzz@gmail.com";//"karni.fazil@gmail.com";// change accordingly
+		final String password = "fzphyvhxoiilqvtg";//"vztffiorfonrupaj";// change accordingly
 
 		// Assuming you are sending email through relay.jangosmtp.net
 		String host = "smtp.gmail.com";
@@ -139,32 +110,8 @@ public class SendEmailUsingGMailSMTP {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
 			// Set Subject: header field
-			message.setSubject("On behalf of Dr. Mujahid Hussain");
-
-			// Now set the actual message
-			// message.setText("<html><body><h2>Hi xxxx,</h2><div>This is Dr.
-			// Mujahid, I hope your doing fine. Recently you consulted me
-			// regarding xxxxx and I hope he/she recovered now. </div><br><div>I
-			// am consistently striving to provide excellent service to my
-			// patients and with regard to this I would love to get your
-			// feedback with a brief <a href=\"#\">click
-			// here</a></div><br><br><div>Thanks and regards,</div><div>Dr.
-			// Mujahid.</div></body></html>");
-			// message.setText("<html><body><h2>Hi xxxx,</h2><div>This is Dr.
-			// Mujahid, I hope your doing fine. Recently you consulted me
-			// regarding xxxxx and I hope he/she recovered now. </div><br><div>I
-			// am consistently striving to provide excellent service to my
-			// patients and with regard to this I would love to get your
-			// feedback with a brief <a href=\"#\">click
-			// here</a></div><br><br><div>Thanks and regards,</div><div>Dr.
-			// Mujahid.</div></body></html>");
-			/*message.setContent(
-					"<html><body><h2>Hi " + appointmentVO.getPatient().getFather_name()
-							+ ",</h2><div>This is Dr. Mujahid, I hope your doing fine. Recently you consulted me regarding "
-							+ appointmentVO.getPatient().getName() + " and I hope " + heorshe
-							+ " recovered now. </div><br><div>I am consistently striving to provide excellent service to my patients and with regard to this I would love to get your feedback with a brief repying to this email</div><br><br><div>Thanks and regards,</div><div>Dr. Mujahid.</div></body></html>",
-					"text/html");*/
-			message.setContent(getEmailBody(appointmentVO,Constants.EMAIL_TYPE_SEND_FOR_FEED_BACK),"text/html");
+			message.setSubject("From Dr."+appointmentVO.getDoctor().getName());
+			message.setContent(getEmailBody(appointmentVO,emailType),"text/html");
 
 			// Send message
 			Transport.send(message);

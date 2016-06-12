@@ -69,6 +69,7 @@ public class AppointmentDao {
 				appointment = new AppointmentVO(); 
 				DoctorVO doctor = new DoctorVO();
 				doctor.setName(rs.getString(6));
+				doctor.setId(rs.getInt(11));
 				PatientVO patient = new PatientVO();
 				patient.setEmail(rs.getString(4));
 				patient.setName(rs.getString(3));
@@ -77,10 +78,13 @@ public class AppointmentDao {
 				patient.setFather_name(rs.getString(8));
 				patient.setSex(rs.getString(9));
 				patient.setAge(rs.getInt(10));
+				patient.setId(rs.getInt(12));
+				
 				appointment.setDoctor(doctor);
 				appointment.setPatient(patient);
-				appointment.setFirstVisit(new Date(rs.getLong(1)));
-				appointment.setFollowup(new Date(rs.getLong(2)));
+				appointment.setFirstVisit(new Date(rs.getTimestamp(1).getTime()));
+				appointment.setFollowup(new Date(rs.getTimestamp(2).getTime()));
+				
 				appointments.add(appointment);
 			}
 		} catch (SQLException e) {
@@ -89,6 +93,33 @@ public class AppointmentDao {
 		}
 		
 		return appointments;
+	}
+	
+	public void setFeedbackEmailSetFlag(List<AppointmentVO> appointments){
+		PreparedStatement preparedStmt=null;
+		try {
+			preparedStmt = (PreparedStatement) connection.prepareStatement("update DOCTOR_PATIENT SET FEEDBACK_EMAIL_SENT=1 WHERE DOCTOR_ID=? AND PATIENT_ID=?");
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for( AppointmentVO appointment: appointments){
+			try {
+				preparedStmt.setInt(1, appointment.getDoctor().getId());
+				preparedStmt.setInt(2, appointment.getPatient().getId());
+				preparedStmt.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+		
 	}
 
 }
