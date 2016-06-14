@@ -46,11 +46,11 @@ public class SendEmailUsingGMailSMTP {
 		while (itr.hasNext()) {
 			sendEmail(itr.next(), Constants.EMAIL_TYPE_SEND_FOR_FEED_BACK);
 		}
-		AppointmentDao.setFeedbackEmailSetFlag(appointments);
+		//AppointmentDao.setFeedbackEmailSetFlag(appointments); //Uncomment this before moving this app to production.
 	}
 	
 	/**
-	* 
+	* 1
 	*/
 	public void sendPatientRemainderEmail() {
 		String query = "select a.FIRST_VISIT, a.FOLLOWUP, p.NAME as PATIENT,p.EMAIL,p.MOBILE, d.NAME as DOCTOR, p.MOTHER_NAME as mother, p.FATHER_NAME as father,p.gender as sex, p.age  from mybaby.PATIENT p, mybaby.DOCTOR d, mybaby.APPOINTMENTS a where a.DOCTORID=d.ID and a.PATIENTID=p.ID";
@@ -154,9 +154,8 @@ public class SendEmailUsingGMailSMTP {
 			heorshe = "she";
 		}
 		String remainder = "<html><body><h2>Hi " + appointmentVO.getPatient().getFather_name()
-				+ ",</h2><div>This is Dr. Mujahid, I hope your doing fine. Recently you consulted me regarding "
-				+ appointmentVO.getPatient().getName() + " and I hope " + heorshe
-				+ " recovered now. </div><br><div>I am consistently striving to provide excellent service to my patients and with regard to this I would love to get your feedback with a brief repying to this email</div><br><br><div>Thanks and regards,</div><div>Dr. Mujahid.</div></body></html>";
+				+ ",</h2><div>This is Dr. Mujahid, I hope your doing fine. Recently you consulted me regarding your child "
+				+ appointmentVO.getPatient().getName() + " and I hope it was a satisfactory meeting. </div><br><div>I am consistently striving to provide excellent services to my patients and with regard to this I would like to improvise by your valuable feedback. So kindly reply to this email answering following queries.</div><br><div>i. How do you rate service/treatment on 1 to 5 scale.</div><div><br><span style='margin-left=50px'>    Very Satisfied = 5, Satisfied = 4, Neutral =3, Dissatisfied = 2, Very Dissatisfied = 1. </span></div><br><div>ii. Any other comments you would like to share : </div><br><br><div>Thanks and regards,</div><div>Dr. Mujahid.</div></body></html>";
 		return remainder;
 	}
 
